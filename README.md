@@ -1,9 +1,6 @@
 # Tax Calculator
 
-Basic sales tax is applicable at a rate of 10% on all goods, except books,
-food, and medical products that are exempt. Import duty is an additional
-sales tax applicable on all imported goods at a rate of 5%, with no
-exemptions.
+Taxes are calculated with a rate of 17.5%, rounding the result to the upper 0.05. Please note that medical products are exempt from taxes and an additional 1.25 fixed amount is added as an extra tax on CDs.
 
 When I purchase items I receive a receipt which lists the name of all the
 items and their price (including tax), finishing with the total cost of the
@@ -14,40 +11,29 @@ sales tax are that for a tax rate of n%, a shelf price of p contains
 Write an application that prints out the receipt details ...
 
 **Input 1:**  
-1 book at 12.49  
-1 music CD at 14.99  
-1 chocolate bar at 0.85  
+one book at 29.49
+one music CD at 15.99
+one chocolate snack at 0.75
 
 **Output 1:**  
-1 book : 12.49  
-1 music CD: 16.49  
-1 chocolate bar: 0.85  
-Sales Taxes: 1.50  
-Total: 29.83  
+1 book: 34.65
+1 music CD: 20.05
+1 chocolate snack: 0.90
+Sales Taxes: 9.37
+Total: 55.59 
 ***
 **Input 2:**  
-1 imported box of chocolates at 10.00  
-1 imported bottle of perfume at 47.50  
+one bottle of wine at 20.99
+one box of tooth ache pills at 4.15 one box of pins at 11.25
+one music CD at 14.99
 
 **Output 2:**  
-1 imported box of chocolates: 10.50  
-1 imported bottle of perfume: 54.65  
-Sales Taxes: 7.65  
-Total: 65.15 
-***
-**Input 3:**  
-1 imported bottle of perfume at 27.99  
-1 bottle of perfume at 18.99  
-1 packet of headache pills at 9.75  
-1 box of imported chocolates at 11.25  
-
-**Output 3:**  
-1 imported bottle of perfume: 32.19  
-1 bottle of perfume: 20.89  
-1 packet of headache pills: 9.75  
-1 imported box of chocolates: 11.85  
-Sales Taxes: 6.70  
-Total: 74.68 
+1 bottle of wine: 24.65
+1 box of headache pills: 4.15
+1 box of pins: 13.20
+1 music CD: 18.85
+Sales Taxes: 9.37
+Total: 60.85
 ***
 
 Shout-out to the person (https://www.linkedin.com/in/ankit-soni-06147280/) who wrote much of this. 
