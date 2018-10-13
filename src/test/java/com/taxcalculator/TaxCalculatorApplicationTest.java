@@ -1,6 +1,9 @@
 package com.taxcalculator;
 
 import com.taxcalculator.receipt.Receipt;
+
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -15,42 +18,80 @@ class TaxCalculatorApplicationTest {
     @Test
     void test() {
 
-        String[] inputs = {"1 book at 12.49", "1 music CD at 14.99",
-                "1 chocolate bar at 0.85"};
+        String[] inputs = {"one book at 29.49", "one music CD at 15.99",
+                "one chocolate bar at 0.75"};
 
         Receipt receipt = taxCalculatorApplication.generateReceipt(inputs);
 
         System.out.println(receipt);
-        Assertions.assertEquals(1.50, receipt.getTotalSalesTax());
-        Assertions.assertEquals(29.83, receipt.getTotalAmount());
+        Assertions.assertEquals(new BigDecimal("9.42"), receipt.getTotalSalesTax());
+        Assertions.assertEquals(new BigDecimal("55.65"), receipt.getTotalAmount());
 
     }
 
     @Test
     void test2() {
 
-        String[] inputs = {"1 imported box of chocolates at 10.00",
-                "1 imported bottle of perfume at 47.50"};
+        String[] inputs = {"one imported box of chocolates at 10.00",
+                "one imported bottle of perfume at 47.50"};
 
         Receipt receipt = new TaxCalculatorApplication().generateReceipt(inputs);
         System.out.println(receipt);
-        Assertions.assertEquals(7.65, receipt.getTotalSalesTax());
-        Assertions.assertEquals(65.15, receipt.getTotalAmount());
+        Assertions.assertEquals(new BigDecimal("10.10"), receipt.getTotalSalesTax());
+        Assertions.assertEquals(new BigDecimal("67.60"), receipt.getTotalAmount());
     }
 
 
     @Test
     void test3() {
 
-        String[] inputs = {"1 imported bottle of perfume at 27.99",
-                "1 bottle of perfume at 18.99",
-                "1 packet of headache pills at 9.75",
-                "1 box of imported chocolates at 11.25"};
+        String[] inputs = {"one bottle of wine at 20.99",
+                "one box of tooth ache pills at 4.15",
+                "one box of pins at 11.25",
+                "one music CD at 14.99"};
 
         Receipt receipt = new TaxCalculatorApplication().generateReceipt(inputs);
         System.out.println(receipt);
-        Assertions.assertEquals(6.70, receipt.getTotalSalesTax());
-        Assertions.assertEquals(74.68, receipt.getTotalAmount());
+        Assertions.assertEquals(new BigDecimal("9.62"), receipt.getTotalSalesTax());
+        Assertions.assertEquals(new BigDecimal("61.00"), receipt.getTotalAmount());
+
+    }
+    
+    @Test
+    void testChristmasShoppingList() {
+
+        String[] inputs = {"one partridge in a pear tree at 20.99",
+                "Two turtle doves at 4.15",
+                "Three french hens at 11.25",
+                "Four calling birds at 14.99",
+                "Five golden rings at 14.99",
+                "Six geese a laying at 14.99",
+                "Seven swans a swimming at 14.99",
+                "Eight maids a milking at 14.99",
+                "Nine ladies dancing at 14.99",
+                "Ten lords a leaping at 14.99",
+                "Eleven pipers piping at 14.99",
+                "Twelve drummers drumming at 14.99",
+                "Thirteen drummers drumming at 14.99"};
+
+        Receipt receipt = new TaxCalculatorApplication().generateReceipt(inputs);
+        System.out.println(receipt);
+        Assertions.assertEquals(new BigDecimal("30.33"), receipt.getTotalSalesTax());
+        Assertions.assertEquals(new BigDecimal("1172.65"), receipt.getTotalAmount());
+
+    }
+    
+    @Test
+    void testError() {
+
+        String[] inputs = {"1 partridge in a pear tree at 20.99",
+                "Two turtle doves at foo.15",
+                "Three french hens at 11.bar"};
+
+        Receipt receipt = new TaxCalculatorApplication().generateReceipt(inputs);
+        System.out.println(receipt);
+        Assertions.assertEquals(new BigDecimal("30.33"), receipt.getTotalSalesTax());
+        Assertions.assertEquals(new BigDecimal("1172.65"), receipt.getTotalAmount());
 
     }
 }
