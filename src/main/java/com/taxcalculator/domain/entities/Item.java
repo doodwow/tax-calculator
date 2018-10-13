@@ -3,6 +3,7 @@ package com.taxcalculator.domain.entities;
 import com.taxcalculator.util.MathUtils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.stream.Stream;
 
 public class Item {
@@ -22,7 +23,7 @@ public class Item {
     }
 
     public BigDecimal getFinalPrice() {
-        finalPrice = MathUtils.roundOffTax((basePrice.multiply(quantity.add(basicSalesTaxAmount)).add(flatTaxAmount)));
+        finalPrice = MathUtils.roundOffTax(quantity.multiply(basePrice.add(basicSalesTaxAmount))).add(flatTaxAmount);
         return finalPrice;
     }
 
@@ -44,7 +45,7 @@ public class Item {
     }
 
     public void setBasicSalesTaxAmount(BigDecimal basicSalesTaxPercent) {
-        this.basicSalesTaxAmount = basicSalesTaxPercent;
+        this.basicSalesTaxAmount = basePrice.multiply(basicSalesTaxPercent);
     }
     
     public void setAdditionalFlatTaxAmount(BigDecimal flatTax) { 
