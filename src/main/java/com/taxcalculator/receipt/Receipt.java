@@ -1,42 +1,39 @@
 package com.taxcalculator.receipt;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.taxcalculator.domain.entities.Item;
-import com.taxcalculator.util.MathUtils;
 
 public class Receipt {
-    private double totalSalesTax = 0.0;
-    private double totalAmount = 0.0;
-    private String itemDetails;
+    private BigDecimal totalSalesTax = BigDecimal.ZERO;
+    private BigDecimal totalAmount = BigDecimal.ZERO;
+    private String itemDetails = "";
 
     public Receipt(List<Item> items) {
-
-        StringBuilder itemDetailsBuilder = new StringBuilder();
-
-        for (Item item : items) {
-            itemDetailsBuilder.append(item.toString()).append("\n");
-            totalSalesTax += item.getTaxAmount();
-            totalAmount += item.getFinalPrice();
-        }
-        totalAmount = MathUtils.roundOffAmount(totalAmount);
-        totalSalesTax = MathUtils.roundOffAmount(totalSalesTax);
-
-        itemDetails = itemDetailsBuilder.toString();
+        items.stream()
+        .filter(i -> i != null)
+        .forEach(i -> buildReceipt(i));
+    }
+    
+    private void buildReceipt(Item item) {
+    	itemDetails += item.toString() + "\n";
+    	totalAmount = totalAmount.add(item.getFinalPrice());
+    	totalSalesTax = totalSalesTax.add(item.getTaxAmount());
     }
 
-    public double getTotalAmount() {
+    public BigDecimal getTotalAmount() {
         return totalAmount;
     }
 
-    public double getTotalSalesTax() {
+    public BigDecimal getTotalSalesTax() {
         return totalSalesTax;
     }
 
     @Override
     public String toString() {
         return "Receipt" + "\n"
-                + itemDetails
+                + itemDetails + "\n"
                 + "Sales Taxes: " + totalSalesTax + "\n"
                 + "Total: " + totalAmount
                 +"\n*******************************\n";

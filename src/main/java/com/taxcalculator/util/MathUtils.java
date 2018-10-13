@@ -1,15 +1,16 @@
 package com.taxcalculator.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class MathUtils {
-
-    public static double roundOffTax(double number) {
-        return Math.ceil(number * 20) / 20;
-    }
-
-    public static double roundOffAmount(double number) {
-        return Math.round(number * 100.0) / 100.0;
+    
+    public static BigDecimal roundOffTax(BigDecimal number) {
+    	BigDecimal taxedItem = number.multiply(new BigDecimal("20")).setScale(0, RoundingMode.UP).setScale(2);
+		taxedItem = taxedItem.divide(new BigDecimal("20"), RoundingMode.UP);
+		return taxedItem;
     }
 }
