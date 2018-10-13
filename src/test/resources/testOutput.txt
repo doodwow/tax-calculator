@@ -2,7 +2,6 @@ Invalid line item: 1 partridge in a pear tree at 20.99. Skipping line.
 Invalid line item: Two turtle doves at foo.15. Skipping line.
 Invalid line item: Three french hens at 11.bar. Skipping line.
 Receipt
-
 Sales Taxes: 0
 Total: 0
 *******************************

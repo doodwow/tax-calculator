@@ -33,7 +33,7 @@ public class Receipt {
     @Override
     public String toString() {
         return "Receipt" + "\n"
-                + itemDetails + "\n"
+                + itemDetails
                 + "Sales Taxes: " + totalSalesTax + "\n"
                 + "Total: " + totalAmount
                 +"\n*******************************\n";

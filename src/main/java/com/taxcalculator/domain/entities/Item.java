@@ -16,7 +16,7 @@ public class Item {
     private BigDecimal finalPrice = BigDecimal.ZERO;
 
     public Item(Long quantity, String name, String basePrice) {
-        this.name = name;
+        this.name = name.trim();
         this.quantity = new BigDecimal(quantity);
         this.basePrice = new BigDecimal(basePrice);
     }
@@ -55,7 +55,7 @@ public class Item {
         return String.valueOf(quantity) +
                 " " +
                 name +
-                " : " +
+                ": " +
                 getFinalPrice();
     }
 }
