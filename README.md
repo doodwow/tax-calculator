@@ -41,4 +41,4 @@ Total: 61.00
 *******************************
 ***
 
-Shout-out to the person (https://www.linkedin.com/in/ankit-soni-06147280/) who wrote much of this. 
+Shout-out to the person who did this (https://github.com/ankitprahladsoni/tax_calculator) whose template I used. 
