@@ -87,8 +87,8 @@ class TaxCalculatorApplicationTest {
 
         Receipt receipt = new TaxCalculatorApplication().generateReceipt(inputs);
         System.out.println(receipt);
-        Assertions.assertEquals(new BigDecimal("32.96"), receipt.getTotalSalesTax());
-        Assertions.assertEquals(new BigDecimal("1370.15"), receipt.getTotalAmount());
+        Assertions.assertEquals(new BigDecimal("234.41"), receipt.getTotalSalesTax());
+        Assertions.assertEquals(new BigDecimal("1571.60"), receipt.getTotalAmount());
 
     }
     
