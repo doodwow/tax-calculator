@@ -3,6 +3,8 @@ package com.taxcalculator.domain.factory;
 import com.taxcalculator.domain.ItemAdapter;
 import com.taxcalculator.domain.ItemTaxCalculator;
 import com.taxcalculator.domain.entities.Item;
+import com.taxcalculator.exception.InvalidItemException;
+
 import lombok.experimental.UtilityClass;
 
 import java.util.Arrays;
@@ -19,9 +21,14 @@ public class ItemFactory {
     }
 
     private static Item from(String input) {
-        Item item = ItemAdapter.createItemFromString(input);
-        ItemTaxCalculator.applyTaxes(item);
-        return item;
+    	try {
+            Item item = ItemAdapter.createItemFromString(input);
+            ItemTaxCalculator.applyTaxes(item);
+            return item;
+    	} catch (InvalidItemException iie) {
+    		System.out.println(iie.getMessage());
+    	}
+    	return null;
     }
 
 }

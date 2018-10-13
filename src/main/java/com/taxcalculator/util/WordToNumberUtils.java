@@ -28,7 +28,7 @@ public class WordToNumberUtils {
 			for (String str : splittedParts) {
 				if (!allowedStrings.contains(str)) {
 					isValidInput = false;
-					throw new WordToNumberException();
+					throw new WordToNumberException(str);
 				}
 			}
 			if (isValidInput) {

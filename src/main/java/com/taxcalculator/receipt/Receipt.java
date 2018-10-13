@@ -2,21 +2,24 @@ package com.taxcalculator.receipt;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.taxcalculator.domain.entities.Item;
 
 public class Receipt {
     private BigDecimal totalSalesTax = BigDecimal.ZERO;
     private BigDecimal totalAmount = BigDecimal.ZERO;
-    private String itemDetails;
+    private String itemDetails = "";
 
     public Receipt(List<Item> items) {
-        itemDetails = items.stream()
-        	.map(i -> i.toString())
-        	.collect(Collectors.joining("\n"));
-        totalAmount = items.stream().map(Item::getFinalPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
-        totalSalesTax = items.stream().map(Item::getTaxAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        items.stream()
+        .filter(i -> i != null)
+        .forEach(i -> buildReceipt(i));
+    }
+    
+    private void buildReceipt(Item item) {
+    	itemDetails += item.toString() + "\n";
+    	totalAmount = totalAmount.add(item.getFinalPrice());
+    	totalSalesTax = totalSalesTax.add(item.getTaxAmount());
     }
 
     public BigDecimal getTotalAmount() {

@@ -1,17 +1,28 @@
 package com.taxcalculator;
 
-import com.taxcalculator.receipt.Receipt;
+import static org.junit.Assert.assertEquals;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import com.taxcalculator.receipt.Receipt;
 
 /**
  * Test class for {@link TaxCalculatorApplication}
  *
  */
 class TaxCalculatorApplicationTest {
+
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+	private final PrintStream originalOut = System.out;
+	private final PrintStream originalErr = System.err;
 
     private TaxCalculatorApplication taxCalculatorApplication = new TaxCalculatorApplication();
 
@@ -76,22 +87,38 @@ class TaxCalculatorApplicationTest {
 
         Receipt receipt = new TaxCalculatorApplication().generateReceipt(inputs);
         System.out.println(receipt);
-        Assertions.assertEquals(new BigDecimal("30.33"), receipt.getTotalSalesTax());
-        Assertions.assertEquals(new BigDecimal("1172.65"), receipt.getTotalAmount());
+        Assertions.assertEquals(new BigDecimal("32.96"), receipt.getTotalSalesTax());
+        Assertions.assertEquals(new BigDecimal("1370.15"), receipt.getTotalAmount());
 
     }
     
     @Test
     void testError() {
 
-        String[] inputs = {"1 partridge in a pear tree at 20.99",
-                "Two turtle doves at foo.15",
-                "Three french hens at 11.bar"};
+    	try {
+			System.setOut(new PrintStream(outContent));
+			System.setErr(new PrintStream(errContent));
+	
+	        String[] inputs = {"1 partridge in a pear tree at 20.99",
+	                "Two turtle doves at foo.15",
+	                "Three french hens at 11.bar"};
+	
+	        Receipt receipt = new TaxCalculatorApplication().generateReceipt(inputs);
+	        System.out.println(receipt);
+	
+	        InputStream inputStream = TaxCalculatorApplicationTest.class.getResourceAsStream("/testOutput.txt");
+			byte[] data = new byte[(int) inputStream.available()];
+			inputStream.read(data);
+			inputStream.close();
 
-        Receipt receipt = new TaxCalculatorApplication().generateReceipt(inputs);
-        System.out.println(receipt);
-        Assertions.assertEquals(new BigDecimal("30.33"), receipt.getTotalSalesTax());
-        Assertions.assertEquals(new BigDecimal("1172.65"), receipt.getTotalAmount());
-
+			String str = new String(data, "UTF-8");
+			assertEquals(str, outContent.toString());
+			
+			System.setOut(originalOut);
+			System.setErr(originalErr);
+    	} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

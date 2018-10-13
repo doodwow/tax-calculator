@@ -14,7 +14,7 @@ public class InvalidItemException extends RuntimeException {
     }
 
     public InvalidItemException(String line) {
-        super(String.format("Line item: (%s) is invalid", line));
+        super(String.format("Invalid line item: %s. Skipping line.", line));
     }
 
 }
